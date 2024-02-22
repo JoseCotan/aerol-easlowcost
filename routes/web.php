@@ -32,7 +32,7 @@ Route::middleware('auth')->group(function () {
 
 Route::resource('reservas', ReservaController::class)->middleware('auth');
 
-Route::resource('vuelos', VueloController::class);
+Route::resource('vuelos', VueloController::class)->middleware('auth');
 
 
 require __DIR__.'/auth.php';

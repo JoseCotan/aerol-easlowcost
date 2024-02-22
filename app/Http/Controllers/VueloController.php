@@ -12,7 +12,9 @@ class VueloController extends Controller
      */
     public function index()
     {
-        //
+        return view('vuelos.index', [
+            'vuelos' => Vuelo::all(),
+        ]);
     }
 
     /**
@@ -20,7 +22,7 @@ class VueloController extends Controller
      */
     public function create()
     {
-        //
+        return view('vuelos.create');
     }
 
     /**
