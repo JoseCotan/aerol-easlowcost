@@ -40,11 +40,16 @@
                 <x-input-error :messages="$errors->get('aeropuerto_destino')" class="mt-2" />
             </div>
             <div>
-                <x-input-label for="compania_aerea_id" :value="'Compañia Aerea'" />
-                <x-text-input id="compania_aerea_id" class="block mt-1 w-full"
-                    type="text" name="compania_aerea_id" :value="old('compania_aerea_id')" required
-                    autofocus autocomplete="compania_aerea_id"/>
-                <x-input-error :messages="$errors->get('compania_aerea_id')" class="mt-2" />
+                <x-input-label for="compania_aerea" :value="'Compañía aérea'" />
+                <select id="compania_id"
+                class="border-grai-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm block mt-1 w-full"
+                name="compania_id" required>
+                @foreach ($companias as $compania)
+                    <option value="{{ $compania->id }}" {{ old('compania_id') == $compania->id ? 'selected' : '' }}>
+                        {{ $compania->nombre }}
+                    </option>
+                @endforeach
+            </select>
             </div>
             <div>
                 <x-input-label for="fecha_salida" :value="'Salida'" />

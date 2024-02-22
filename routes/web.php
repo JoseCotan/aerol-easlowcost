@@ -32,6 +32,8 @@ Route::middleware('auth')->group(function () {
 
 Route::resource('reservas', ReservaController::class)->middleware('auth');
 
+Route::post('reservas/create/{vuelo}', [ReservaController::class, 'create'])->name('reservas.create');
+
 Route::resource('vuelos', VueloController::class)->middleware('auth');
 
 

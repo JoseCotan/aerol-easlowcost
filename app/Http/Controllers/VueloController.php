@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CompaniaAerea;
 use App\Models\Vuelo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -15,6 +16,7 @@ class VueloController extends Controller
     {
         return view('vuelos.index', [
             'vuelos' => Vuelo::all(),
+            'companias' => CompaniaAerea::all(),
         ]);
     }
 
@@ -26,6 +28,7 @@ class VueloController extends Controller
         $user = Auth::user();
         return view('vuelos.create', [
             'user' => $user,
+            'companias' => CompaniaAerea::all(),
         ]);
     }
 

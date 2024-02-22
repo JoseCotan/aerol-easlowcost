@@ -39,11 +39,11 @@ class Vuelo extends Model
 
     public function plazasTotales()
     {
-        return $this->reservas()->where('vuelo_id', $this->id)->count();
+        return $this->plazas;
     }
 
     public function plazasDisponibles()
     {
-        return $this->plazas - $this->reservas()->where('vuelo_id', $this->id)->count();
+        return $this->plazas - $this->reservas->count();
     }
 }

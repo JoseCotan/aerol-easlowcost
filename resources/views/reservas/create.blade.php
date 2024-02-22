@@ -5,11 +5,16 @@
 
             <!-- Nombre -->
             <div>
-                <x-input-label for="vuelo_id" :value="'Vuelo'" />
                 <x-text-input id="vuelo_id" class="block mt-1 w-full"
-                    type="text" name="vuelo_id" :value="old('vuelo_id')" required
-                    autofocus autocomplete="vuelo_id"/>
+                type="hidden" name="vuelo_id" :value="$vuelo->id" required
+                autofocus autocomplete="vuelo_id"/>
                 <x-input-error :messages="$errors->get('vuelo_id')" class="mt-2" />
+            </div>
+            <div>
+                <x-text-input id="codigo" class="block mt-1 w-full"
+                type="text" name="codigo" :value="$vuelo->codigo" required
+                autofocus autocomplete="codigo" readonly/>
+                <x-input-error :messages="$errors->get('codigo')" class="mt-2" />
             </div>
 
             <div>
