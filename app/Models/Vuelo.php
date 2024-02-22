@@ -10,6 +10,8 @@ class Vuelo extends Model
 {
     use HasFactory;
 
+    public $timestamps = false;
+
     public function reservas()
     {
         return $this->hasMany(Reserva::class);
@@ -33,6 +35,11 @@ class Vuelo extends Model
     public function aeropuertoOrigen()
     {
         return $this->belongsTo(Aeropuerto::class, 'aeropuerto_origen');
+    }
+
+    public function plazasTotales()
+    {
+        return $this->reservas()->where('vuelo_id', $this->id)->count();
     }
 
     public function plazasDisponibles()

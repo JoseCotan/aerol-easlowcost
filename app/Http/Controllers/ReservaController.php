@@ -50,6 +50,10 @@ class ReservaController extends Controller
         $reserva->user_id = Auth::user()->id;
         $reserva->vuelo_id = $validated['vuelo_id'];
         $reserva->asiento = $validated['asiento'];
+        if ($vuelo->plazas < $validated['asiento']) {
+            session()->flash('error', 'Asiento inexistente.');
+            return redirect()->route('reservas.index');
+        }
         $reserva->save();
         session()->flash('success', 'La reserva se ha creado correctamente.');
         return redirect()->route('reservas.index');
