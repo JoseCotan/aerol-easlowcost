@@ -28,7 +28,9 @@ class VueloController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'codigo' => 'required|string|regex:/^[A-Z]{2}\d{4}$/',
+        ]);
     }
 
     /**

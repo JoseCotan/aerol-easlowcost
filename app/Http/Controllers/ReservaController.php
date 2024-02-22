@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Reserva;
+use App\Models\Vuelo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -31,6 +32,15 @@ class ReservaController extends Controller
      */
     public function store(Request $request)
     {
+        $datos = $request->all();
+
+        $vuelo = Vuelo::find($datos['vuelo_id']);
+
+        if ($vuelo->plazasDisponibles($datos['vuelo_id']) <= 0) {
+            session()->flash('error', 'No hay plazas disponibles.');
+            return redirect()->route('reservas.index');
+        }
+
         $validated = $request->validate([
             'vuelo_id' => 'required|max:255',
             'asiento' => 'required|max:2',

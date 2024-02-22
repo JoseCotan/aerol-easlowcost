@@ -10,7 +10,13 @@
                         Vuelo
                     </th>
                     <th scope="col" class="px-6 py-3">
-                        Plaza
+                        Asiento
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        Destino y fecha de salida
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        Origen y fecha de llegada
                     </th>
                 </tr>
             </thead>
@@ -21,10 +27,16 @@
                             {{ $reserva->user->name }}
                         </th>
                         <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            {{ $reserva->vuelo->codigo }}
+                            {{ $reserva->vuelo->codigo}}
                         </th>
                         <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            {{ $reserva->asiento }}
+                            {{ $reserva->asiento}}
+                        </th>
+                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                            {{ $reserva->vuelo->aeropuertoOrigen->nombre . " " . $reserva->vuelo->fecha_salida }}
+                        </th>
+                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                            {{ $reserva->vuelo->aeropuertoDestino->nombre . " " . $reserva->vuelo->fecha_llegada }}
                         </th>
                     </tr>
                 @endforeach

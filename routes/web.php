@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReservaController;
+use App\Http\Controllers\VueloController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -29,9 +30,9 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::resource('reservas', ReservaController::class);
+Route::resource('reservas', ReservaController::class)->middleware('auth');
 
-Route::resource('vuelos', VuelosController::class);
+Route::resource('vuelos', VueloController::class);
 
 
 require __DIR__.'/auth.php';
