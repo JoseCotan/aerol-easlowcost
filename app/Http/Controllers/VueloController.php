@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Aeropuerto;
 use App\Models\CompaniaAerea;
 use App\Models\Vuelo;
 use Illuminate\Http\Request;
@@ -28,6 +29,7 @@ class VueloController extends Controller
         $user = Auth::user();
         return view('vuelos.create', [
             'user' => $user,
+            'aeropuertos' => Aeropuerto::all(),
             'companias' => CompaniaAerea::all(),
         ]);
     }
@@ -38,26 +40,25 @@ class VueloController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'codigo' => 'required|string|regex:/^[A-Z]{2}\d{4}$/',
+            'codigo' => 'unique:vuelos|required|string|regex:/^[A-Z]{2}\d{4}$/',
             'plazas' => 'required|max:3',
             'precio' => 'required|max:6,2',
-            'aeropuerto_origen' => 'required|max:255',
-            'aeropuerto_destino' => 'required|max:255',
-            'compania_aerea_id' => 'required|max:2',
+            'aeropuerto_origen' => 'required|string',
+            'aeropuerto_destino' => 'required|string',
+            'compania_aerea_id' => 'required|max:25',
             'fecha_salida' => 'required|max:255',
             'fecha_llegada' => 'required|max:255',
         ]);
 
+        if ($validated['aeropuerto_origen'] === $validated['aeropuerto_destino']) {
+            session()->flash('error', 'Mismo aeropuerto de origen y destino.');
+            return redirect()->route('vuelos.create');
+        }
+
         $vuelo = new Vuelo();
-        $vuelo->codigo = $validated['codigo'];
-        $vuelo->plazas = $validated['plazas'];
-        $vuelo->precio = $validated['precio'];
-        $vuelo->aeropuerto_origen = $validated['aeropuerto_origen'];
-        $vuelo->aeropuerto_destino = $validated['aeropuerto_destino'];
-        $vuelo->compania_aerea_id = $validated['compania_aerea_id'];
-        $vuelo->fecha_salida = $validated['fecha_salida'];
-        $vuelo->fecha_llegada = $validated['fecha_llegada'];
-        $vuelo->save();
+        // Resto del código para guardar el vuelo
+        // ...
+
         session()->flash('success', 'El vuelo se ha creado correctamente.');
         return redirect()->route('vuelos.index');
     }

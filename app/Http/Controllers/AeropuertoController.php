@@ -28,7 +28,9 @@ class AeropuertoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'nombre' => 'required|string|regex:/^[A-Z]{3}/',
+        ]);
     }
 
     /**

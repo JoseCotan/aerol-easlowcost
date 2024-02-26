@@ -11,6 +11,7 @@
                 <x-input-error :messages="$errors->get('vuelo_id')" class="mt-2" />
             </div>
             <div>
+                <x-input-label for="asiento" :value="'Código del vuelo'" />
                 <x-text-input id="codigo" class="block mt-1 w-full"
                 type="text" name="codigo" :value="$vuelo->codigo" required
                 autofocus autocomplete="codigo" readonly/>
@@ -19,9 +20,13 @@
 
             <div>
                 <x-input-label for="asiento" :value="'Asiento de la reserva'" />
-                <x-text-input id="asiento" class="block mt-1 w-full"
-                    type="text" name="asiento" :value="old('asiento')" required
-                    autofocus autocomplete="asiento" />
+                <select id="asiento" class="block mt-1 w-full" name="asiento" required>
+                    @foreach ($asientosDisponibles as $asiento)
+                        <option value="{{ $asiento }}" {{ old('asiento') == $asiento ? 'selected' : '' }}>
+                            {{ "Asiento número ". $asiento }}
+                        </option>
+                    @endforeach
+                </select>
                 <x-input-error :messages="$errors->get('asiento')" class="mt-2" />
             </div>
 

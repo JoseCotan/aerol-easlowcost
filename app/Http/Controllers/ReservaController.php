@@ -14,17 +14,22 @@ class ReservaController extends Controller
      */
     public function index()
     {
+        $usuarioActual = Auth::user();
+        $reservasUsuarioActual = $usuarioActual->reservas;
         return view('reservas.index', [
-            'reservas' => Reserva::all(),
+            'reservas' => $reservasUsuarioActual,
         ]);
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create(Request $request, Vuelo $vuelo)
+    public function create($vueloId)
     {
-        return view('reservas.create', ['vuelo' => $vuelo]);
+        $vuelo = Vuelo::findOrFail($vueloId);
+        $asientosReservados = $vuelo->reservas()->pluck('asiento')->toArray();
+        $asientosDisponibles = array_diff(range(1, $vuelo->plazas), $asientosReservados);
+        return view('reservas.create')->with('vuelo', $vuelo)->with('asientosDisponibles', $asientosDisponibles);
     }
 
     /**
@@ -64,7 +69,9 @@ class ReservaController extends Controller
      */
     public function show(Reserva $reserva)
     {
-        //
+        return view('reservas.show', [
+            'reserva' => $reserva,
+        ]);
     }
 
     /**

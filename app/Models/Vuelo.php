@@ -24,7 +24,7 @@ class Vuelo extends Model
 
     public function companiaAerea()
     {
-        return $this->belongsTo(CompaniaAerea::class);
+        return $this->belongsTo(CompaniaAerea::class, 'compania_aerea_id');
     }
 
     public function aeropuertoDestino()

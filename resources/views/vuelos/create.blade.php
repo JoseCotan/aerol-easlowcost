@@ -2,7 +2,6 @@
     <div class="w-1/2 mx-auto">
         <form method="POST" action="{{ route('vuelos.store') }}">
             @csrf
-
             <!-- Nombre -->
             <div>
                 <x-input-label for="codigo" :value="'Codigo'" />
@@ -26,26 +25,35 @@
                 <x-input-error :messages="$errors->get('precio')" class="mt-2" />
             </div>
             <div>
-                <x-input-label for="aeropuerto_origen" :value="'Origen'" />
-                <x-text-input id="aeropuerto_origen" class="block mt-1 w-full"
-                    type="text" name="aeropuerto_origen" :value="old('aeropuerto_origen')" required
-                    autofocus autocomplete="aeropuerto_origen"/>
-                <x-input-error :messages="$errors->get('aeropuerto_origen')" class="mt-2" />
-            </div>
-            <div>
-                <x-input-label for="aeropuerto_destino" :value="'Destino'" />
-                <x-text-input id="aeropuerto_destino" class="block mt-1 w-full"
-                    type="text" name="aeropuerto_destino" :value="old('aeropuerto_destino')" required
-                    autofocus autocomplete="aeropuerto_destino"/>
-                <x-input-error :messages="$errors->get('aeropuerto_destino')" class="mt-2" />
-            </div>
-            <div>
-                <x-input-label for="compania_aerea" :value="'Compañía aérea'" />
-                <select id="compania_id"
+                <x-input-label for="aeropuerto_origen" :value="'Aeropuerto de origen'" />
+                <select id="aeropuerto_origen"
                 class="border-grai-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm block mt-1 w-full"
-                name="compania_id" required>
+                name="aeropuerto_origen" required>
+                @foreach ($aeropuertos as $aeropuerto)
+                    <option value="{{ $aeropuerto->id }}" {{ old('aeropuerto_origen') == $aeropuerto->id ? 'selected' : '' }}>
+                        {{ $aeropuerto->nombre }}
+                    </option>
+                @endforeach
+            </select>
+            </div>
+            <div>
+                <x-input-label for="aeropuerto_destino" :value="'Aeropuerto de destino'" />
+                <select id="aeropuerto_destino"
+                class="border-grai-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm block mt-1 w-full"
+                name="aeropuerto_destino" required>
+                @foreach ($aeropuertos as $aeropuerto)
+                    <option value="{{ $aeropuerto->id }}" {{ old('aeropuerto_destino') == $aeropuerto->id ? 'selected' : '' }}>
+                        {{ $aeropuerto->nombre }}
+                    </option>
+                @endforeach
+            </select>
+            <div>
+                <x-input-label for="compania_aerea_id" :value="'Compañía aérea'" />
+                <select id="compania_aerea_id"
+                class="border-grai-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm block mt-1 w-full"
+                name="compania_aerea_id" required>
                 @foreach ($companias as $compania)
-                    <option value="{{ $compania->id }}" {{ old('compania_id') == $compania->id ? 'selected' : '' }}>
+                    <option value="{{ $compania->id }}" {{ old('compania_aerea_id') == $compania->id ? 'selected' : '' }}>
                         {{ $compania->nombre }}
                     </option>
                 @endforeach
@@ -65,7 +73,6 @@
                     autofocus autocomplete="fecha_llegada"/>
                 <x-input-error :messages="$errors->get('fecha_llegada')" class="mt-2" />
             </div>
-
             <div class="flex items-center justify-end mt-4">
                 <a href="{{ route('vuelos.index') }}">
                     <x-secondary-button class="ms-4">
