@@ -56,8 +56,15 @@ class VueloController extends Controller
         }
 
         $vuelo = new Vuelo();
-        // Resto del código para guardar el vuelo
-        // ...
+        $vuelo->codigo = $validated['codigo'];
+        $vuelo->plazas = $validated['plazas'];
+        $vuelo->precio = $validated['precio'];
+        $vuelo->aeropuerto_origen = $validated['aeropuerto_origen'];
+        $vuelo->aeropuerto_destino = $validated['aeropuerto_destino'];
+        $vuelo->compania_aerea_id = $validated['compania_aerea_id'];
+        $vuelo->fecha_salida = $validated['fecha_salida'];
+        $vuelo->fecha_llegada = $validated['fecha_llegada'];
+        $vuelo->save();
 
         session()->flash('success', 'El vuelo se ha creado correctamente.');
         return redirect()->route('vuelos.index');
