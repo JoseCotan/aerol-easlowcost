@@ -18,6 +18,6 @@ class Buscador extends Component
 
     public function search()
     {
-        return Vuelo::where('codigo', 'ilike', '%' . $this->buscador . '%')->get();
+        return Vuelo::where('codigo', 'ilike', '%' . $this->buscador . '%')->paginate(2);
     }
 }

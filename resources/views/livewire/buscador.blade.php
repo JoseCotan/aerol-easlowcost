@@ -90,6 +90,7 @@
                 @endforeach
             </tbody>
         </table>
+        {{ $vuelos->links() }}
     @else
         <p>No se encontraron resultados</p>
     @endif
